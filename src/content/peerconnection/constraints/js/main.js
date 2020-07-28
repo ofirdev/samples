@@ -159,7 +159,7 @@ function createPeerConnection() {
     let canvas = Object.assign(document.createElement("canvas"), {width, height});
     canvas.getContext('2d').fillStyle = 'green';
     canvas.getContext('2d').fillRect(0, 0, width, height);
-    let stream = canvas.captureStream();
+    let stream = canvas.captureStream(30);
     let track = stream.getVideoTracks()[0];
     //let track = videoTrack.clone();
     //let stream = new MediaStream();
