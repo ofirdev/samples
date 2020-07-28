@@ -180,7 +180,7 @@ function createPeerConnection() {
       let video = document.createElement('video');
       video.setAttribute("playsinline","");
       video.setAttribute("autoplay","");
-      video.setAttribute("muted","");
+      video.muted = true;
       parent.appendChild(video);
       video.srcObject = e.streams[0];
     }
