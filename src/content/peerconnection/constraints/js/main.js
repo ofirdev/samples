@@ -166,9 +166,21 @@ function createPeerConnection() {
         .then(onAddIceCandidateSuccess, onAddIceCandidateError);
   };
   remotePeerConnection.ontrack = e => {
-    if (remoteVideo.srcObject !== e.streams[0]) {
-      console.log('remotePeerConnection got stream');
-      remoteVideo.srcObject = e.streams[0];
+    //if (remoteVideo.srcObject !== e.streams[0]) {
+    //  console.log('remotePeerConnection got stream');
+    //  remoteVideo.srcObject = e.streams[0];
+    //}
+    if(e.track.kind != 'video') {
+      return;
+    }
+    for(let i=0; i<10; i++) {
+      let parent = document.getElementById('remoteVideo');
+      var video = document.createElement('video');
+      video.setAttribute("playsinline","");
+      video.setAttribute("autoplay","");
+      video.setAttribute("muted","");
+      parent.appendChild('video');
+      video.srcObject = e.streams[0];
     }
   };
   localPeerConnection.createOffer().then(
