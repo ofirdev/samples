@@ -154,8 +154,10 @@ function createPeerConnection() {
   let videoCountInput =  document.querySelector('div#videoCount input');
   let count = parseInt(videoCountInput.value);
   for (let i=0; i< count; i++) {
+    let width = 640;
+    let height = 480l
     let canvas = Object.assign(document.createElement("canvas"), {width, height});
-    canvas.getContext('2d').fillRect(0, 0, 640, 480);
+    canvas.getContext('2d').fillRect(0, 0, width, height);
     let stream = canvas.captureStream();
     let track = stream.getVideoTracks()[0];
     //let track = videoTrack.clone();
