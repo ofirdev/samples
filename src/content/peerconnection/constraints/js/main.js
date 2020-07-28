@@ -156,7 +156,8 @@ function createPeerConnection() {
   for (let i=0; i< count; i++) {
     //let track = videoTrack.clone();
     let stream = new MediaStream();
-    localPeerConnection.addTrack(videoTrack, stream);
+    //localPeerConnection.addTrack(videoTrack, stream);
+    localPeerConnection.addTransceiver(videoTrack);
   }
   console.log('localPeerConnection creating offer');
   localPeerConnection.onnegotiationeeded = () => console.log('Negotiation needed - localPeerConnection');
