@@ -86,7 +86,7 @@ section#video {
 }
 
 video {
-  --width: 90%;
+  --width: 25%;
   width: var(--width);
   height: calc(var(--width) * 0.75);
   margin: 0 0 10px 0;
