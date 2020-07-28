@@ -154,9 +154,9 @@ function createPeerConnection() {
   let videoCountInput =  document.querySelector('div#videoCount input');
   let count = parseInt(videoCountInput.value);
   for (let i=0; i< count; i++) {
-    let track = videoTrack.clone();
+    //let track = videoTrack.clone();
     let stream = new MediaStream();
-    localPeerConnection.addTrack(track, stream);
+    localPeerConnection.addTrack(videoTrack, stream);
   }
   console.log('localPeerConnection creating offer');
   localPeerConnection.onnegotiationeeded = () => console.log('Negotiation needed - localPeerConnection');
