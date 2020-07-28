@@ -175,11 +175,11 @@ function createPeerConnection() {
     }
     for(let i=0; i<10; i++) {
       let parent = document.getElementById('remoteVideo');
-      var video = document.createElement('video');
+      let video = document.createElement('video');
       video.setAttribute("playsinline","");
       video.setAttribute("autoplay","");
       video.setAttribute("muted","");
-      parent.appendChild('video');
+      parent.appendChild(video);
       video.srcObject = e.streams[0];
     }
   };
