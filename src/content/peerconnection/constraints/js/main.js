@@ -173,7 +173,9 @@ function createPeerConnection() {
     if(e.track.kind != 'video') {
       return;
     }
-    for(let i=0; i<10; i++) {
+    let videoCountInput =  document.querySelector('div#videoCount input');
+    let count = parseInt(videoCountInput.value);
+    for(let i=0; i<count; i++) {
       let parent = document.getElementById('remoteVideo');
       let video = document.createElement('video');
       video.setAttribute("playsinline","");
