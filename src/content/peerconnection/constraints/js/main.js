@@ -153,18 +153,14 @@ function createPeerConnection() {
   let videoTrack = localStream.getVideoTracks()[0];
   let videoCountInput =  document.querySelector('div#videoCount input');
   let count = parseInt(videoCountInput.value);
-  let colors = ['red', 'green', 'blue'];
+  let canvases = [];
   for (let i=0; i< count; i++) {
     let width = 640;
     let height = 480;
     let canvas = Object.assign(document.createElement("canvas"), {width, height});
     canvas.getContext('2d').fillStyle = 'green';
     canvas.getContext('2d').fillRect(0, 0, width, height);
-    setInterval(() => {
-      var color = colors[Math.floor(Math.random() * colors.length)];
-      canvas.getContext('2d').fillStyle = color;
-      canvas.getContext('2d').fillRect(0, 0, width, height);
-    }, 40);
+    canvases.push(canvas);
     let stream = canvas.captureStream(25);
     let track = stream.getVideoTracks()[0];
     //let track = videoTrack.clone();
@@ -172,6 +168,16 @@ function createPeerConnection() {
     //localPeerConnection.addTrack(videoTrack, stream);
     localPeerConnection.addTransceiver(track, {direction: 'sendonly', streams: [stream]});
   }
+  let colors = ['red', 'green', 'blue'];
+  let update = function() {
+    let color = colors[Math.floor(Math.random() * colors.length)];
+    for (let canvas of canvases) {
+      canvas.getContext('2d').fillStyle = color;
+      canvas.getContext('2d').fillRect(0, 0, width, height);
+    }
+    window.requestAnimationFrame(update);
+  }
+  window.requestAnimationFrame(update);
   console.log('localPeerConnection creating offer');
   localPeerConnection.onnegotiationeeded = () => console.log('Negotiation needed - localPeerConnection');
   remotePeerConnection.onnegotiationeeded = () => console.log('Negotiation needed - remotePeerConnection');
