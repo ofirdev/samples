@@ -153,17 +153,19 @@ function createPeerConnection() {
   let videoTrack = localStream.getVideoTracks()[0];
   let videoCountInput =  document.querySelector('div#videoCount input');
   let count = parseInt(videoCountInput.value);
+  let colors = ['red', 'green', 'blue'];
   for (let i=0; i< count; i++) {
     let width = 640;
     let height = 480;
     let canvas = Object.assign(document.createElement("canvas"), {width, height});
     canvas.getContext('2d').fillStyle = 'green';
     canvas.getContext('2d').fillRect(0, 0, width, height);
-    setTimeout(() => {
-      canvas.getContext('2d').fillStyle = 'red';
+    setInterval(() => {
+      var color = colors[Math.floor(Math.random() * colors.length)];
+      canvas.getContext('2d').fillStyle = color;
       canvas.getContext('2d').fillRect(0, 0, width, height);
-    }, 5000);
-    let stream = canvas.captureStream(30);
+    }, 40);
+    let stream = canvas.captureStream(25);
     let track = stream.getVideoTracks()[0];
     //let track = videoTrack.clone();
     //let stream = new MediaStream();
