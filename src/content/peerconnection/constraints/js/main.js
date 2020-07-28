@@ -149,7 +149,15 @@ function createPeerConnection() {
   timestampPrev = 0;
   localPeerConnection = new RTCPeerConnection(null);
   remotePeerConnection = new RTCPeerConnection(null);
-  localStream.getTracks().forEach(track => localPeerConnection.addTrack(track, localStream));
+  //localStream.getTracks().forEach(track => localPeerConnection.addTrack(track, localStream));
+  let videoTrack = localStream.getVideoTracks()[0];
+  let videoCountInput =  document.querySelector('div#videoCount input');
+  let count = parseInt(videoCountInput.value);
+  for (let i=0; i< count; i++) {
+    let track = videoTrack.clone();
+    let stream = new MediaStream();
+    localPeerConnection.addTrack(track, stream);
+  }
   console.log('localPeerConnection creating offer');
   localPeerConnection.onnegotiationeeded = () => console.log('Negotiation needed - localPeerConnection');
   remotePeerConnection.onnegotiationeeded = () => console.log('Negotiation needed - remotePeerConnection');
@@ -173,7 +181,14 @@ function createPeerConnection() {
     if(e.track.kind != 'video') {
       return;
     }
-    let videoCountInput =  document.querySelector('div#videoCount input');
+    let parent = document.getElementById('remoteVideo');
+    let video = document.createElement('video');
+    video.setAttribute("playsinline","");
+    video.setAttribute("autoplay","");
+    video.muted = true;
+    parent.appendChild(video);
+    video.srcObject = e.streams[0];
+    /*let videoCountInput =  document.querySelector('div#videoCount input');
     let count = parseInt(videoCountInput.value);
     for(let i=0; i<count; i++) {
       let parent = document.getElementById('remoteVideo');
@@ -183,7 +198,7 @@ function createPeerConnection() {
       video.muted = true;
       parent.appendChild(video);
       video.srcObject = e.streams[0];
-    }
+    }*/
   };
   localPeerConnection.createOffer().then(
       desc => {
