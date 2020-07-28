@@ -155,7 +155,7 @@ function createPeerConnection() {
   let count = parseInt(videoCountInput.value);
   for (let i=0; i< count; i++) {
     let width = 640;
-    let height = 480l
+    let height = 480;
     let canvas = Object.assign(document.createElement("canvas"), {width, height});
     canvas.getContext('2d').fillStyle = 'blue';
     canvas.getContext('2d').fillRect(0, 0, width, height);
